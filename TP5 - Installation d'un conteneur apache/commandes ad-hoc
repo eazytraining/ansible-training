@@ -1,0 +1,18 @@
+Installtion de pip et ansible-lint : 
+sudo yum install python-pip
+sudo pip install ansible-lint
+
+Checker l'indentation du playbook
+ansible-lint deploy.yml
+
+Lancement du playbook
+ansible-playbook -i hosts.yml -vvv deploy.yml
+
+Push code 
+git init
+git add .
+git config –global user.email “examplen@example.example”
+git config –global user.name “votre nom”
+git commit -m “webapp first version”
+git add origin
+git push origin master

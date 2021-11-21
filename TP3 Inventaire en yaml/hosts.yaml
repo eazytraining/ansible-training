@@ -1,0 +1,10 @@
+all:
+  hosts:
+    10.0.0.4: # A remplacer par l'IP de votre machine cible
+      ansible_user: admin 
+      ansible_password: admin 
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    10.0.0.5: # A remplacer par l'IP de votre machine cible
+      ansible_user: admin 
+      ansible_password: admin 
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
