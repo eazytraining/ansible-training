@@ -1,5 +1,4 @@
 Installtion de pip et ansible-lint : 
-sudo yum install python-pip
 sudo pip install ansible-lint
 
 Checker l'indentation du playbook
