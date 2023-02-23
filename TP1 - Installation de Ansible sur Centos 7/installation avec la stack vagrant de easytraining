@@ -1,0 +1,10 @@
+install ansible et client
+git clone https://github.com/diranetafen/cursus-devops.git 
+cd cursus-devops/vagrant/ansible
+vagrant up
+vagrant ssh ansible
+installer docker sur la machine client
+ansible-galaxy install geerlingguy.pip
+ansible-galaxy install geerlingguy.docker
+Créer le fichier hosts avec ce contenu
+client ansible_host=192.168.99.11 ansible_user=vagrant ansible_password=vagrant ansible_ssh_common_args='-o StrictHostKeyChecking=no' ansible_python_interpreter=/usr/bin/python3
