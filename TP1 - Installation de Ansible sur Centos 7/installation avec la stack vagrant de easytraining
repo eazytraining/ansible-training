@@ -1,0 +1,17 @@
+1-install ansible et client
+
+git clone https://github.com/diranetafen/cursus-devops.git 
+cd cursus-devops/vagrant/ansible
+vagrant up
+vagrant ssh ansible
+
+2-installer docker sur la machine client
+
+ansible-galaxy install geerlingguy.pip
+ansible-galaxy install geerlingguy.docker
+
+créer un dossier et les fichiers hosts.ini et install_docker.yml
+lancer le déployement avec la commande: ansible-playbook -i hosts.ini install_docker.yml
+
+3- Test votre docker
+ ansible-playbook -i hosts.ini nginx.yml
