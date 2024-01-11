@@ -14,3 +14,11 @@
     OS: Centos7
     Python 2.7.5
 ```    
+
+#### Commande ping
+
+ansible -i hosts.yml all -m ping
+ 
+#### Commande pour créer un fichier
+
+ansible -i hosts.yml all -m copy -a "dest=/home/admin/toto.txt content='bonjour eazytraining'"

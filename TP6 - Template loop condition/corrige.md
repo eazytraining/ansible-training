@@ -15,3 +15,7 @@ OS: Centos7
 Python 2.7.5
 Docker version 20.10.8
 ```
+
+```bash
+ansible-playbook -i hosts.yml deploy.yml
+```

@@ -5,7 +5,7 @@ all:
 prod:
   hosts:
     client:
-       ansible_host: 10.0.0.4 # A remplacer par l'IP de votre machine cible
+       ansible_host: 10.0.0.4 # A remplacer par l'IP ou le DNS de votre machine cible
   vars:
     env: production
     ansible_password: admin
