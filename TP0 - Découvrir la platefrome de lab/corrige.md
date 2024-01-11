@@ -8,6 +8,6 @@ Si vous comptez utiliser l'environement de Lab alors pour avoir les informations
 * Installation de paquet
 * Ouverture de port
 
-alors [voici](https://github.com/eazytraining/setup-labs-ansible) le tutoriel à suivre.
+alors [voici](https://eazytraining.fr/cours/ansible-pour-devops/lessons/tp-0-presentation-de-la-plateforme-de-tp-by-eazytraining/) le tutoriel à suivre.
 
 
