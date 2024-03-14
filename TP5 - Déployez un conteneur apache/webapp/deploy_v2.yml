@@ -1,19 +1,32 @@
 ---
-- name: "Apache installation using docker"
+- name: "Apache installation using Docker"
   hosts: prod
   become: true
   pre_tasks:
     - name: Install EPEL repo
-      package: name=epel-release state=present
+      package:
+        name: epel-release
+        state: present
       when: ansible_distribution == "CentOS"
+    
     - name: Download pip script
       get_url:
         url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
         dest: /tmp/get-pip.py
+    
     - name: Install python-pip
       ansible.builtin.command: python2.7 /tmp/get-pip.py
+    
     - name: Install docker python
-      pip: name=docker-py
+      ansible.builtin.pip:
+        name: docker-py
+    
+    - name: Add current user to Docker group
+      ansible.builtin.user:
+        name: "{{ ansible_env.SUDO_USER | default(ansible_env.USER) }}"
+        groups: docker
+        append: yes
+
   tasks:
     - name: Create Apache container
       docker_container:
