@@ -1,0 +1,55 @@
+---
+- name: Install docker on a Centos 7 machine
+  hosts: prod
+  become: yes
+  tags: docker
+  vars_files:
+    - files/secrets/credentials.yaml
+  pre_tasks:
+    - name: Install pre-requisite packages
+      yum:
+        name: "{{item}}"
+        state: latest
+      loop:
+        - yum-utils
+        - device-mapper-persistent-data
+        - lvm2
+        - python3
+
+    - name: download pip script
+      get_url:
+        url: https://bootstrap.pypa.io/get-pip.py
+        dest: /tmp/get-pip.py
+
+    - name: install python-pip
+      command: python3 /tmp/get-pip.py
+
+    - name: Install docker python
+      pip:
+        name: docker-py
+        executable: /usr/local/bin/pip3
+
+  tasks:
+    - name: Add Docker CE repo
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+
+    - name: Install Docker
+      yum:
+        name: docker
+        state: latest
+
+    - name: Start and enable the Docker daemon
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add remote user to docker group
+      user:
+        name: "{{ ansible_user }}"
+        groups: dockerroot
+        append: yes
+
+...

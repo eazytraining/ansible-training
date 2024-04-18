@@ -1,0 +1,6 @@
+prod:
+  hosts:
+    client1:
+       ansible_host: 192.168.99.11 # A remplacer par l'IP de votre client
+    client2:
+       ansible_host: 192.168.99.12 # A remplacer par l'IP de votre client
