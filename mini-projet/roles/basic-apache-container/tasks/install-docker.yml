@@ -43,15 +43,16 @@
 - name: Enable and Start docker
   service:
     name: docker
-    state: docker
+    state: started
     enabled: yes
+
+- name: Ensure pip3 is installed
+  yum:
+    name: python3-pip
+    state: present
 
 - name: docker python
   pip:
     name: docker-py
-    executable: pip3
-
-- name: start docker
-  service:
-    name: docker
+    executable: /usr/local/bin/pip3
     enabled: yes
