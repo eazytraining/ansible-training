@@ -1,3 +1,0 @@
-AJC Septembre 2021
-https://github.com/Pintademijote/training_ansible
-https://github.com/AmandineTao/mini-projet-ansible
