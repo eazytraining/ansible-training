@@ -3,13 +3,19 @@
 git clone https://github.com/diranetafen/cursus-devops.git 
 cd cursus-devops/vagrant/ansible
 vagrant up
-vagrant ssh ansible
 ```
 
-#### connexion à la machine  ansible et client
+#### connexion à la machine  ansible
 ```bash
+cd cursus-devops/vagrant/ansible
 vagrant ssh ansible
-vagrant client1
+ansible --version
+```
+
+#### connexion à la machine  client1
+```bash
+cd cursus-devops/vagrant/ansible
+vagrant ssh client1
 ```
 
 ####  Installer docker sur la machine client
