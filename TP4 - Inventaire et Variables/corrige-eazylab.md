@@ -1,25 +1,28 @@
 #### Versions sur eazytraining/ansible
 ```bash
-OS: Centos7
-ansible 2.9.25
-  config file = /etc/ansible/ansible.cfg
-  configured module search path = [u'/home/admin/.ansible/plugins/modules', u'/usr/share/ansible/plugins/modules']
-  ansible python module location = /usr/lib/python2.7/site-packages/ansible
-  executable location = /bin/ansible
-  python version = 2.7.5 (default, Oct 14 2020, 14:45:30) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]
+      OS: Centos7
+      ansible [core 2.11.12]
+      config file = None
+      configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+      ansible python module location = /usr/local/lib/python3.6/site-packages/ansible
+      ansible collection location = /home/vagrant/.ansible/collections:/usr/share/ansible/collections
+      executable location = /usr/local/bin/ansible
+      python version = 3.6.8 (default, Nov 14 2023, 16:29:52) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]
+      jinja version = 3.0.3
+      libyaml = True
 ```
-
+  
 #### Versions sur eazytraining/client
 ```bash
-  OS: Centos7
-  Python 2.7.5
+    OS: Centos7
+    Python 3.6.8
 ```
 
 #### Creation du fichier hosts.ini
 
 vi hosts.ini
 
-#### Inserez le contenu suivant
+#### Inserez le contenu suivant tout en se rassurant de remplacer IP par l'ip du client
 
 ```bash
 [all:vars]
@@ -27,7 +30,7 @@ ansible_user=admin
 ansible_ssh_common_args='-o StrictHostKeyChecking=no'
 
 [prod]
-client ansible_host=10.0.0.4
+client ansible_host=IP
 
 [prod:vars]
 ansible_password=admin
@@ -46,7 +49,7 @@ ansible -i hosts.ini all -m copy -a "dest=/home/admin/toto.txt content='bonjour 
 vi hosts.yml
 ```
 
-#### Inserez le contenu suivant
+#### Inserez le contenu suivant tout en se rassurant de remplacer IP par l'ip du client
 
 ```bash
 all:
@@ -56,7 +59,7 @@ all:
 prod:
   hosts:
     client:
-      ansible_host: 10.0.0.4
+      ansible_host: IP
   vars:
     ansible_password: admin
     env: production
