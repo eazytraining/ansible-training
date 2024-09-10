@@ -1,24 +1,31 @@
 ---
-- name: "Apache installation using docker"
+- name: "Apache installation using Docker on CentOS 7"
   hosts: prod
   become: true
   vars:
     ansible_sudo_pass: admin
   pre_tasks:
-    - name: Install EPEL repo
-      package: name=epel-release state=present
+    - name: Install EPEL repo (for CentOS)
+      package:
+        name: epel-release
+        state: present
       when: ansible_distribution == "CentOS"
-    - name: Download pip script
-      get_url:
-        url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
-        dest: /tmp/get-pip.py
-    - name: Install python-pip
-      ansible.builtin.command: python2.7 /tmp/get-pip.py
-    - name: Install docker python
-      pip: name=docker-py
+
+    - name: Install Python 3 and pip3
+      package:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
+        executable: pip3
+
   tasks:
-    - name: Create Apache container
-      docker_container:
+    - name: Create Apache container using Docker
+      community.docker.docker_container:
         name: webapp
         image: httpd
         ports:
