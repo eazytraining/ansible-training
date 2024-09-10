@@ -6,6 +6,12 @@ vagrant up
 vagrant ssh ansible
 ```
 
+#### connexion à la machine  ansible et client
+```bash
+vagrant ssh ansible
+vagrant client1
+```
+
 ####  Installer docker sur la machine client
 ```bash
 ansible-galaxy install geerlingguy.pip
