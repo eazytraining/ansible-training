@@ -40,7 +40,7 @@ Bien se rassurer de remplacer l'ip dans le fichier hosts.yml par celui du client
 
 ### Stack eazylab
 
-Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit vagrant
+Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit admin
 
 ```bash
 
