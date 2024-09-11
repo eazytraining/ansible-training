@@ -221,7 +221,7 @@ vars:
 ansible-playbook -i hosts.yml deploy.yml
 ```
 
-
+## Eazylabs
 
 ### Générez une paire de clé en laissant tous les paramètres par defaut
 ```bash
