@@ -16,6 +16,43 @@ Python 2.7.5
 Docker version 20.10.8
 docker-compose version 1.21.0
 ```
+## Stack vagrant
+
+### Récupéreration des roles ansible
+```bash
+ansible-galaxy install -r roles/requirements.yml
+```
+
+### Se rassurer de remplecer IP_client par l'ip du client ansible
+
+### le contenu de wordpress.yml
+
+```bash
+
+---
+- hosts: prod
+  become: true
+  vars:
+    system_user: vagrant
+    compose_binary_dir: /bin
+  vars_files:
+    - files/secrets/credentials.vault
+  pre_tasks:
+    - name: create www data
+      user: 
+        name:  www-data
+        state: present
+  roles:
+    - { role: ansible-role-containerized-wordpress}
+
+```
+
+### Lancez votre playbook et verifier que tout se passe bien
+```bash
+ansible-playbook -i hosts.yml --ask-vault-pass wordpress.yml
+```
+
+## Eazylabs
 
 ### Récupéreration des roles ansible
 ```bash
@@ -42,6 +79,29 @@ ansible-galaxy install -r roles/requirements.yml
   ```bash
   sudo systemctl start docker
   ```
+### Se rassurer de remplecer IP_client par l'ip du client ansible
+
+### le contenu de wordpress.yml
+
+```bash
+
+---
+- hosts: prod
+  become: true
+  vars:
+    system_user: admin
+    compose_binary_dir: /bin
+  vars_files:
+    - files/secrets/credentials.vault
+  pre_tasks:
+    - name: create www data
+      user: 
+        name:  www-data
+        state: present
+  roles:
+    - { role: ansible-role-containerized-wordpress}
+
+```
 
 ### Lancez votre playbook et verifier que tout se passe bien
 ```bash
