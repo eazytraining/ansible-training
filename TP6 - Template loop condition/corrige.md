@@ -53,7 +53,7 @@ Bien se rassurer de remplacer IP_client dans le fichier hosts.yml par celui du c
 
 #####  Lancement du playbook dans la stack vagrant
 
-Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.ymldeploy_v1.yml: ansible_sudo_pass: vagrant
+Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.yml: ansible_sudo_pass: vagrant
 
 ```bash
 ansible-playbook -i hosts.yml -vvv deploy.yml
@@ -61,7 +61,7 @@ ansible-playbook -i hosts.yml -vvv deploy.yml
 
 #####  Lancement du playbook dans eazylab
 
-Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.ymldeploy_v1.yml: ansible_sudo_pass: admin
+Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.yml: ansible_sudo_pass: admin
 
 ```bash
 ansible-playbook -i hosts.yml -vvv deploy.yml
