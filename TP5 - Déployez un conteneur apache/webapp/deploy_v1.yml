@@ -3,7 +3,8 @@
   hosts: prod
   become: true
   vars:
-    ansible_sudo_pass: admin
+    ansible_sudo_pass: vagrant
+    ansible_python_interpreter: /usr/bin/python3.6
   pre_tasks:
     - name: Install EPEL repo (for CentOS)
       package:
