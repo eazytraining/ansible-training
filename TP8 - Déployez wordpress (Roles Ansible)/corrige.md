@@ -25,7 +25,15 @@
 ansible-galaxy install -r roles/requirements.yml
 ```
 
-### Se rassurer de remplecer IP_client par l'ip du client ansible
+### Se rassurer de remplecer IP_client par l'ip du client ansible dans le fichier hosts.yml
+
+### Contenu du fichier TP8 - Déployez wordpress (Roles Ansible)/webapp/group_vars/prod.yml:
+
+  ```bash
+ ---
+ansible_user: vagrant
+# Commenter cette ligne pour empêcher Ansible d'utiliser le login par password et plutot utiliser la clés ssh
+ansible_password: "{{ vault_ansible_password }}" 
 
 ### le contenu de wordpress.yml
 
@@ -81,7 +89,16 @@ ansible-galaxy install -r roles/requirements.yml
   ```bash
   sudo systemctl start docker
   ```
-### Se rassurer de remplecer IP_client par l'ip du client ansible
+### Se rassurer de remplecer IP_client par l'ip du client ansible dans le fichier hosts.yml
+
+### Contenu du fichier TP8 - Déployez wordpress (Roles Ansible)/webapp/group_vars/prod.yml:
+
+  ```bash
+ ---
+ansible_user: admin
+# Commenter cette ligne pour empêcher Ansible d'utiliser le login par password et plutot utiliser la clés ssh
+ansible_password: "{{ vault_ansible_password }}" 
+  ```
 
 ### le contenu de wordpress.yml
 
