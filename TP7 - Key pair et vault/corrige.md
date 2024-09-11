@@ -42,7 +42,7 @@ ansible-vault encrypt files/secrets/credentials.vault
 
 ### Retirer la variable ansible_password dans le group_vars/prod.yml
 
-### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible
+### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible dans le fichier hosts.yml
 
 ### Se rassurer de remplacer que le user ansible dans group_vars soit:
 
@@ -125,7 +125,7 @@ ansible-vault encrypt files/secrets/credentials.vault
 
 ### Retirer la variable ansible_password dans le group_vars/prod.yml
 
-### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible
+### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible dans le fichier hosts.yml
 
 ### Se rassurer de remplacer que le user ansible dans group_vars soit:
 
