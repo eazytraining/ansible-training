@@ -59,7 +59,7 @@ ansible-lint deploy_v2.yml
 
 #####  Lancement du playbook dans la stack vagrant
 
-Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.ymldeploy_v1.yml: ansible_sudo_pass: vagrant
+Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy_v1.yml: ansible_sudo_pass: vagrant
 
 ```bash
 ansible-playbook -i hosts.yml -vvv deploy_v1.yml
@@ -68,7 +68,7 @@ ansible-playbook -i hosts.yml -vvv deploy_v2.yml
 
 #####  Lancement du playbook dans eazylab
 
-Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.ymldeploy_v1.yml: ansible_sudo_pass: admin
+Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy_v1.yml: ansible_sudo_pass: admin
 
 ```bash
 ansible-playbook -i hosts.yml -vvv deploy_v1.yml
