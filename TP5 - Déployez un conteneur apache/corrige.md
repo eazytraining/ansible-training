@@ -49,7 +49,7 @@ cat P5 - Déployez un conteneur apache/webapp/group_vars/prod.yml
 ansible_user: admin
 ansible_password: admin
 ```
-Bien se rassurer de remplacer l'ip dans le fichier hosts.yml par celui du client ansible
+Bien se rassurer de remplacer IP_client dans le fichier hosts.yml par celui du client ansible
 
 #####  Check de l'indentation du playbook
 ```bash
