@@ -56,9 +56,46 @@ ansible_password: "{{ vault_ansible_password }}"
 
 ### Vous allez modifiez le playbook deploy.yml afin de lui demander de charger le fichier vaulté en tant que vars_files, rajouter ce qui suit:
 ```bash
-become: true
-vars_files:
-    - files/secrets/credentials.vault
+---
+- name: "Apache installation using Docker on CentOS 7"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.6
+  vars_files:
+      - files/secrets/credentials.vault
+  pre_tasks:
+    - name: Install EPEL repo (for CentOS)
+      package:
+        name: epel-release
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Install Python 3 and pip3
+      package:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
+        executable: pip3
+        
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/vagrant/index.html
+    - name: Create Apache container
+      docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes: 
+         - /home/vagrant/index.html:/usr/local/apache2/htdocs/index.html
 ```
 
 ### Lancez votre playbook en rajoutant le paramètre qui vous permettra de fournir la clé vault
@@ -73,7 +110,6 @@ ansible-playbook -i hosts.yml --ask-vault-pass deploy.yml
 ```bash
 files/secrets/credentials.vault
 ```
-
 ### Déplacez la variable contenant la variable du mot de passe admin dans ce fichier
 ```bash
 ansible_password: admin
@@ -84,18 +120,63 @@ ansible_password: admin
 ansible-vault encrypt files/secrets/credentials.vault
 ```
 
-### Verifier l'encryption est bien passé
-```bash
-cat files/secrets/credentials.vault
-```
 
 ### Retirer la variable ansible_password dans le group_vars/prod.yml
 
+### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible
+
+### Se rassurer de remplacer que le user ansible dans group_vars soit:
+
+```bash
+cat group_vars/prod.yml
+---
+ansible_user: admin
+ansible_password: "{{ vault_ansible_password }}"
+
+```
+
 ### Vous allez modifiez le playbook deploy.yml afin de lui demander de charger le fichier vaulté en tant que vars_files, rajouter ce qui suit:
 ```bash
-become: true
-vars_files:
-    - files/secrets/credentials.vault
+---
+- name: "Apache installation using Docker on CentOS 7"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.6
+  vars_files:
+      - files/secrets/credentials.vault
+  pre_tasks:
+    - name: Install EPEL repo (for CentOS)
+      package:
+        name: epel-release
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Install Python 3 and pip3
+      package:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
+        executable: pip3
+        
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/admin/index.html
+    - name: Create Apache container
+      docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes: 
+         - /home/admin/index.html:/usr/local/apache2/htdocs/index.html
 ```
 
 ### Lancez votre playbook en rajoutant le paramètre qui vous permettra de fournir la clé vault
@@ -105,6 +186,8 @@ ansible-playbook -i hosts.yml --ask-vault-pass deploy.yml
 
 ########################### KEYPAIR ###########################
 
+## Stack vagrant
+
 ### Générez une paire de clé en laissant tous les paramètres par defaut
 ```bash
 ssh-keygen -t rsa
@@ -112,12 +195,47 @@ ssh-keygen -t rsa
 
 ### Copiez le contenu de la clé publique (id_rsa.pub) dans le fichier /home/admin/.ssh/authorized_host du client
 ```bash
-ssh-copy-id admin@10.0.0.6
+ssh-copy-id vagrant@IP_client
 ```
 
 ### Verifier que le cop s'est bien passe en se connectant chez le client via
 ```bash
-ssh admin@10.0.0.6
+ssh vagrant@IP_client
+cat .ssh/authorized_keys
+```
+
+### Modifiez le fichier d’inventaire afin de rajouter cette variable à tous les hôtes (all) ansible_ssh_common_args='-o StrictHostKeyChecking=no
+```bash
+vi hosts.yml
+```
+
+### Rajoutez le contenu qui suit:
+```bash
+all:
+vars:
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+```
+
+### Lancez à nouveau votre playbook et verifier que tout se passe bien
+```bash
+ansible-playbook -i hosts.yml deploy.yml
+```
+
+
+
+### Générez une paire de clé en laissant tous les paramètres par defaut
+```bash
+ssh-keygen -t rsa
+```
+
+### Copiez le contenu de la clé publique (id_rsa.pub) dans le fichier /home/admin/.ssh/authorized_host du client
+```bash
+ssh-copy-id admin@IP_client
+```
+
+### Verifier que le cop s'est bien passe en se connectant chez le client via
+```bash
+ssh admin@IP_client
 cat .ssh/authorized_keys
 ```
 
