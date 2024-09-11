@@ -22,6 +22,52 @@
 
 ########################### VAULT ###########################
 
+## Stack vagrant
+
+### Créez un répertoire files qui va lui-même contenir un dossier secrets qui lui-même va contenir un fichier credentials.vault
+
+```bash
+files/secrets/credentials.vault
+```
+### Déplacez la variable contenant la variable du mot de passe admin dans ce fichier
+```bash
+ansible_password: vagrant
+```
+
+### Ensuite vous allez encryptez ce fichier à l’aide de la commande ansible-vault encrypt
+```bash
+ansible-vault encrypt files/secrets/credentials.vault
+```
+
+
+### Retirer la variable ansible_password dans le group_vars/prod.yml
+
+### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible
+
+### Se rassurer de remplacer que le user ansible dans group_vars soit:
+
+```bash
+cat group_vars/prod.yml
+---
+ansible_user: vagrant
+ansible_password: "{{ vault_ansible_password }}"
+
+```
+
+### Vous allez modifiez le playbook deploy.yml afin de lui demander de charger le fichier vaulté en tant que vars_files, rajouter ce qui suit:
+```bash
+become: true
+vars_files:
+    - files/secrets/credentials.vault
+```
+
+### Lancez votre playbook en rajoutant le paramètre qui vous permettra de fournir la clé vault
+```bash
+ansible-playbook -i hosts.yml --ask-vault-pass deploy.yml
+```
+
+## Eazylabs
+
 ### Créez un répertoire files qui va lui-même contenir un dossier secrets qui lui-même va contenir un fichier credentials.vault
 
 ```bash
