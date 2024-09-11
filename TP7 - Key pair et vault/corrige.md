@@ -65,11 +65,13 @@ ansible_password: "{{ vault_ansible_password }}"
   vars_files:
       - files/secrets/credentials.vault
   pre_tasks:
-    - name: Install EPEL repo (for CentOS)
-      package:
-        name: epel-release
-        state: present
+    - name: Install EPEL repo
+      package: name={{ item }} state=present
       when: ansible_distribution == "CentOS"
+      loop:
+        - epel-release
+        - git
+        - wget
 
     - name: Install Python 3 and pip3
       package:
@@ -146,11 +148,13 @@ ansible_password: "{{ vault_ansible_password }}"
   vars_files:
       - files/secrets/credentials.vault
   pre_tasks:
-    - name: Install EPEL repo (for CentOS)
-      package:
-        name: epel-release
-        state: present
+    - name: Install EPEL repo
+      package: name={{ item }} state=present
       when: ansible_distribution == "CentOS"
+      loop:
+        - epel-release
+        - git
+        - wget
 
     - name: Install Python 3 and pip3
       package:
@@ -228,11 +232,13 @@ vars:
   vars:
     ansible_python_interpreter: /usr/bin/python3.6
   pre_tasks:
-    - name: Install EPEL repo (for CentOS)
-      package:
-        name: epel-release
-        state: present
+    - name: Install EPEL repo
+      package: name={{ item }} state=present
       when: ansible_distribution == "CentOS"
+      loop:
+        - epel-release
+        - git
+        - wget
 
     - name: Install Python 3 and pip3
       package:
@@ -308,11 +314,13 @@ vars:
   vars:
     ansible_python_interpreter: /usr/bin/python3.6
   pre_tasks:
-    - name: Install EPEL repo (for CentOS)
-      package:
-        name: epel-release
-        state: present
+    - name: Install EPEL repo
+      package: name={{ item }} state=present
       when: ansible_distribution == "CentOS"
+      loop:
+        - epel-release
+        - git
+        - wget
 
     - name: Install Python 3 and pip3
       package:
