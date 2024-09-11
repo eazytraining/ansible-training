@@ -4,6 +4,8 @@
   become: true
   vars:
     ansible_python_interpreter: /usr/bin/python3.6
+  vars_files:
+      - files/secrets/credentials.vault
   pre_tasks:
     - name: Install EPEL repo (for CentOS)
       package:
