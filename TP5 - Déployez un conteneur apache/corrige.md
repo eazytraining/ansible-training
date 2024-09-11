@@ -22,18 +22,62 @@
 ### Commandes ad-hoc
 #####  Installation de ansible-lint
 ```bash
-sudo pip install ansible-lint
+sudo pip3 install ansible-lint
 ```
+
+### Stack vagrant
+
+Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit vagrant
+
+```bash
+
+cat P5 - Déployez un conteneur apache/webapp/group_vars/prod.yml
+---
+ansible_user: vagrant
+ansible_password: vagrant
+```
+Bien se rassurer de remplacer l'ip dans le fichier hosts.yml par celui du client ansible
+
+### Stack eazylab
+
+Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit vagrant
+
+```bash
+
+cat P5 - Déployez un conteneur apache/webapp/group_vars/prod.yml
+---
+ansible_user: admin
+ansible_password: admin
+```
+Bien se rassurer de remplacer l'ip dans le fichier hosts.yml par celui du client ansible
 
 #####  Check de l'indentation du playbook
 ```bash
-ansible-lint deploy.yml
+ansible-lint deploy.ymldeploy_v1.yml
+ansible-lint deploy.ymldeploy_v2.yml
 ```
 
-#####  Lancement du playbook
+#####  Lancement du playbook dans la stack vagrant
+
+Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.ymldeploy_v1.yml: ansible_sudo_pass: vagrant
+
 ```bash
-ansible-playbook -i hosts.yml -vvv deploy.yml
+ansible-playbook -i hosts.yml -vvv deploy.ymldeploy_v1.yml
+ansible-playbook -i hosts.yml -vvv deploy.ymldeploy_v2.yml
 ```
+
+#####  Lancement du playbook dans eazylab
+
+Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.ymldeploy_v1.yml: ansible_sudo_pass: admin
+
+```bash
+ansible-playbook -i hosts.yml -vvv deploy.ymldeploy_v1.yml
+ansible-playbook -i hosts.yml -vvv deploy.ymldeploy_v2.yml
+```
+### Tester
+
+#### Stack vagrant: Allez dans le navigateur puis entrer l'ip du client suivi du port 80: http://ip_client:80
+#### Eazylab: Ouvrir le port 80 dans OPEN PORT de eazylab pour visualiser l'application
 
 #####  Push du code sur github
 ```bash
