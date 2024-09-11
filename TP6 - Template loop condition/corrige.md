@@ -18,13 +18,6 @@
     Python 3.6.8
 ```
 
-
-### Commandes ad-hoc
-#####  Installation de ansible-lint
-```bash
-sudo pip3 install ansible-lint
-```
-
 ### Stack vagrant
 
 Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit vagrant
@@ -53,12 +46,51 @@ Bien se rassurer de remplacer IP_client dans le fichier hosts.yml par celui du c
 
 #####  Lancement du playbook dans la stack vagrant
 
-- Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.yml: ansible_sudo_pass: vagrant
+- Bien se rassurer que volume dans deploy.yml soit
 
-- Bien se rassurer que volume dans deploy.yml ai pour source: "/home/vagrant/index.html"
+```bash
 
-          volumes:
+---
+- name: "Apache installation using Docker on CentOS 7"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.6
+  pre_tasks:
+    - name: Install EPEL repo (for CentOS)
+      package:
+        name: epel-release
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Install Python 3 and pip3
+      package:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
+        executable: pip3
+        
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/vagrant/index.html
+    - name: Create Apache container
+      docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes: 
          - /home/vagrant/index.html:/usr/local/apache2/htdocs/index.html
+
+```
+#### Lancement du playbook
 
 ```bash
 ansible-playbook -i hosts.yml -vvv deploy.yml
@@ -66,12 +98,51 @@ ansible-playbook -i hosts.yml -vvv deploy.yml
 
 #####  Lancement du playbook dans eazylab
 
-- Bien se rassurer de changer la valeur de ansible_sudo_pass en vagrant dans deploy.yml: ansible_sudo_pass: admin
+- Bien se rassurer que volume dans deploy.yml soit:
 
-- Bien se rassurer que volume dans deploy.yml ai pour source: "/home/admin/index.html"
+```bash
 
-          volumes:
+---
+- name: "Apache installation using Docker on CentOS 7"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.6
+  pre_tasks:
+    - name: Install EPEL repo (for CentOS)
+      package:
+        name: epel-release
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Install Python 3 and pip3
+      package:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
+        executable: pip3
+        
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/admin/index.html
+    - name: Create Apache container
+      docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes: 
          - /home/admin/index.html:/usr/local/apache2/htdocs/index.html
+
+```
+#### Lancement du playbook 
 
 ```bash
 ansible-playbook -i hosts.yml -vvv deploy.yml
