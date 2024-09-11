@@ -215,6 +215,52 @@ all:
 vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
 ```
+### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible
+
+### contenu du fichier deploy.yml
+
+```bash
+
+---
+- name: "Apache installation using Docker on CentOS 7"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.6
+  pre_tasks:
+    - name: Install EPEL repo (for CentOS)
+      package:
+        name: epel-release
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Install Python 3 and pip3
+      package:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
+        executable: pip3
+        
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/vagrant/index.html
+    - name: Create Apache container
+      docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes: 
+         - /home/vagrant/index.html:/usr/local/apache2/htdocs/index.html
+
+```
 
 ### Lancez à nouveau votre playbook et verifier que tout se passe bien
 ```bash
@@ -249,6 +295,50 @@ vi hosts.yml
 all:
 vars:
     ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+```
+### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible
+
+### contenu du fichier deploy.yml
+
+```bash
+---
+- name: "Apache installation using Docker on CentOS 7"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3.6
+  pre_tasks:
+    - name: Install EPEL repo (for CentOS)
+      package:
+        name: epel-release
+        state: present
+      when: ansible_distribution == "CentOS"
+
+    - name: Install Python 3 and pip3
+      package:
+        name:
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install Docker module for Python
+      pip:
+        name: docker
+        executable: pip3
+        
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/admin/index.html
+    - name: Create Apache container
+      docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes: 
+         - /home/admin/index.html:/usr/local/apache2/htdocs/index.html
 ```
 
 ### Lancez à nouveau votre playbook et verifier que tout se passe bien
