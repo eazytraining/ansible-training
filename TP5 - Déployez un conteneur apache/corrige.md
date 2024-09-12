@@ -18,6 +18,10 @@
     Python 3.6.8
 ```
 
+### Installation de ansible-lint
+```bash
+sudo pip3 install ansible-lint
+```
 
 ### Commandes ad-hoc
 #####  Installation de ansible-lint
