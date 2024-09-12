@@ -23,15 +23,15 @@
 copiez le contenu du fichier hosts-eazylab.yml depuis ce repos dont le repertoire est:
 
 ```bash
-    TP3 - Inventaire au format yaml/hosts-eazylab.yml
+    TP3 - Inventaire au format yaml/hosts-eazylab.yaml
 ```
 
 ### Se rassurer de remplecer IP par l'ip du client ansible dans le fichier hosts-eazylab.yml
 
 #### Tester: Commande ping
 
-ansible -i hosts-eazylab.yml all -m ping
+ansible -i hosts-eazylab.yaml all -m ping
  
 #### Commande pour créer un fichier
 
-ansible -i hosts-eazylab.yml all -m copy -a "dest=/home/admin/toto.txt content='bonjour eazytraining'"
+ansible -i hosts-eazylab.yaml all -m copy -a "dest=/home/admin/toto.txt content='bonjour eazytraining'"
