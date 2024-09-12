@@ -68,5 +68,6 @@ prod:
 #### Ping
 ```bash
 ansible -i hosts.yml all -m ping
+
 ansible -i hosts.yml all -m copy -a "dest=/home/admin/toto.txt content='bonjour eazytraining {{ env }}'"
 ```
