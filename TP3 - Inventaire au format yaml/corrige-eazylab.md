@@ -30,8 +30,8 @@ copiez le contenu du fichier hosts-eazylab.yml depuis ce repos dont le repertoir
 
 #### Tester: Commande ping
 
-ansible -i hosts.yml all -m ping
+ansible -i hosts-eazylab.yml all -m ping
  
 #### Commande pour créer un fichier
 
-ansible -i hosts.yml all -m copy -a "dest=/home/admin/toto.txt content='bonjour eazytraining'"
+ansible -i hosts-eazylab.yml all -m copy -a "dest=/home/admin/toto.txt content='bonjour eazytraining'"
