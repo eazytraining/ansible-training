@@ -26,6 +26,8 @@ copiez le contenu du fichier hosts-eazylab.yml depuis ce repos dont le repertoir
     TP3 - Inventaire au format yaml/hosts-eazylab.yml
 ```
 
+### Se rassurer de remplecer IP par l'ip du client ansible dans le fichier hosts-eazylab.yml
+
 #### Tester: Commande ping
 
 ansible -i hosts.yml all -m ping
