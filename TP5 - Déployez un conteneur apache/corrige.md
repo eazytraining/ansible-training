@@ -18,18 +18,14 @@
     Python 3.6.8
 ```
 
+### Commandes ad-hoc
+
+### Stack vagrant
+
 ### Installation de ansible-lint
 ```bash
 sudo pip3 install ansible-lint
 ```
-
-### Commandes ad-hoc
-#####  Installation de ansible-lint
-```bash
-sudo pip3 install ansible-lint
-```
-
-### Stack vagrant
 
 Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit vagrant
 
@@ -43,6 +39,11 @@ ansible_password: vagrant
 Bien se rassurer de remplacer l'ip dans le fichier hosts.yml par celui du client ansible
 
 ### Stack eazylab
+
+### Installation de ansible-lint
+```bash
+pip3 install ansible-lint
+```
 
 Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit admin
 
