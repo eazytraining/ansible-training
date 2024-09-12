@@ -23,13 +23,15 @@
 copiez le contenu du fichier hosts-vagrant.yml depuis ce repos dont le repertoire est:
 
 ```bash
-    TP3 - Inventaire au format yaml/hosts-vagrant.yml
+    TP3 - Inventaire au format yaml/hosts-vagrant.yaml
 ```
+
+### Se rassurer de remplecer ip par l'ip du client ansible dans le fichier hosts-vagrant.yaml
 
 #### Tester: Commande ping
 
-ansible -i hosts.yml all -m ping
+ansible -i hosts-vagrant.yaml all -m ping
  
 #### Commande pour créer un fichier
 
-ansible -i hosts.yml all -m copy -a "dest=/home/vagrant/toto.txt content='bonjour eazytraining'"
+ansible -i hosts-vagrant.yaml all -m copy -a "dest=/home/vagrant/toto.txt content='bonjour eazytraining'"
