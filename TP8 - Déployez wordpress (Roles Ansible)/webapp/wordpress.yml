@@ -2,7 +2,7 @@
 - hosts: prod
   become: true
   vars:
-    system_user: admin
+    system_user: vagrant
     compose_binary_dir: /bin
   vars_files:
     - files/secrets/credentials.vault
