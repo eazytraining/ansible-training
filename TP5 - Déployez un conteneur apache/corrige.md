@@ -22,6 +22,45 @@
 
 ### Stack vagrant
 
+####  Installer docker sur la machine client
+```bash
+ansible-galaxy install geerlingguy.pip
+ansible-galaxy install geerlingguy.docker
+```
+
+#### Créer les fichiers hosts.ini et install_docker.yml
+
+```bash
+ cat hosts.ini
+
+      client ansible_host=IP_client ansible_user=vagrant ansible_password=vagrant ansible_ssh_common_args='-o StrictHostKeyChecking=no' ansible_python_interpreter=/usr/bin/python3
+```
+### Remplacer IP_client par l'ip du client ansible dans le fichier hosts.ini
+
+```bash
+      - hosts: all
+  become: yes
+  vars:
+    pip_install_packages:
+      - name: docker
+    docker_users:
+      - vagrant
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+
+```
+
+#### Lancer le déploiement: 
+```bash
+ansible-playbook -i hosts.ini install_docker.yml
+```
+#### Test
+```bash
+ ansible-playbook -i hosts.ini nginx.yml
+```
+
+
 ### Installation de ansible-lint
 ```bash
 sudo pip3 install ansible-lint
