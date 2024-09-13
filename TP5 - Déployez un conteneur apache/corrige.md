@@ -35,9 +35,10 @@ ansible-galaxy install geerlingguy.docker
 
       client ansible_host=IP_client ansible_user=vagrant ansible_password=vagrant ansible_ssh_common_args='-o StrictHostKeyChecking=no' ansible_python_interpreter=/usr/bin/python3
 ```
-### Remplacer IP_client par l'ip du client ansible dans le fichier hosts.ini
+### NB: Remplacer IP_client par l'ip du client ansible dans le fichier hosts.ini
 
 ```bash
+cat install_docker.yml
       - hosts: all
   become: yes
   vars:
