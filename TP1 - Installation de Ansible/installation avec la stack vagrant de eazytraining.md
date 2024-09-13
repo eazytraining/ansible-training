@@ -12,8 +12,9 @@ vagrant ssh ansible
 ansible --version
 ```
 
-#### connexion à la machine  client1
+#### connexion à la machine  client1 et client2
 ```bash
 cd cursus-devops/vagrant/ansible
 vagrant ssh client1
+vagrant ssh client2
 ```
