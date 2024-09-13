@@ -1,2 +1,2 @@
 ---
-ansible_user: admin
+ansible_user: vagrant
