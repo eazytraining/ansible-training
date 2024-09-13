@@ -1,0 +1,4 @@
+---
+ansible_user: admin
+# Commenter cette ligne pour empêcher Ansible d'utiliser le login par password et plutot utiliser la clés ssh
+ansible_password: "{{ vault_ansible_password }}" 

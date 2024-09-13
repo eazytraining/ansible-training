@@ -1,0 +1,9 @@
+---
+- hosts: all
+  tasks:
+  - name: nginx
+    docker_container:
+      name: nginx
+      image: nginx
+      ports:
+        - "80:80"
