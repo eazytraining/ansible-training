@@ -1,0 +1,10 @@
+#ec2 information
+instance_type: t2.medium
+security_group_name: "devops-sg"
+id_token: "550e8400-e29b-41d4-a716-446655440079"
+host_group_name: "server"
+aim_centos7: "ami-0057d8e6fb0692b80"
+key_name: "devops"
+region: "us-east-1"
+host_group : "server"
+subnet : "subnet-6636ac2b"

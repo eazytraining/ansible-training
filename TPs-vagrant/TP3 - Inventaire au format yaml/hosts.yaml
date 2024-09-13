@@ -1,0 +1,12 @@
+all:
+  hosts:
+    web1:
+      ansible_host: IP # A remplacer par l'IP de votre machine cible ou le nom de domaine
+      ansible_user: vagrant 
+      ansible_password: vagrant 
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'
+    web2:
+      ansible_host: IP # A remplacer par l'IP de votre machine cible ou le nom de domaine
+      ansible_user: vagrant
+      ansible_password: vagrant 
+      ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

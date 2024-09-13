@@ -1,0 +1,5 @@
+---
+- hosts: prod
+  become: true
+  roles:
+    - { role: basic-apache-container }
