@@ -76,10 +76,6 @@ ansible_password: vagrant
 ```
 Bien se rassurer de remplacer l'ip dans le fichier hosts.yml par celui du client ansible
 
-### Tester
-
-#### Stack vagrant: Allez dans le navigateur puis entrer l'ip du client suivi du port 80: http://ip_client:80
-
 #####  Push du code sur github
 ```bash
 git init
