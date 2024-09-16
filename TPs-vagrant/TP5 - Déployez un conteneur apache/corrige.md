@@ -78,8 +78,6 @@ Bien se rassurer de remplacer l'ip dans le fichier hosts.yml par celui du client
 
 #### Lancer le déploiement 
 
-ansible-playbook -i hosts.yml -vvv deploy.yml
-
 ```bash
 ansible-playbook -i hosts.yml -vvv deploy_v1.yml
 ansible-playbook -i hosts.yml -vvv deploy_v2.yml
