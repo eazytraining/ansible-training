@@ -65,16 +65,29 @@ ansible-playbook -i hosts.ini install_docker.yml
 sudo pip3 install ansible-lint
 ```
 
-Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit vagrant
+Bien se rassurer que le user et le password dans webapp/group_vars/prod.yml soit vagrant
 
 ```bash
 
-cat P5 - Déployez un conteneur apache/webapp/group_vars/prod.yml
+cat webapp/group_vars/prod.yml
 ---
 ansible_user: vagrant
 ansible_password: vagrant
 ```
 Bien se rassurer de remplacer l'ip dans le fichier hosts.yml par celui du client ansible
+
+#### Lancer le déploiement 
+
+ansible-playbook -i hosts.yml -vvv deploy.yml
+
+```bash
+ansible-playbook -i hosts.yml -vvv deploy_v1.yml
+ansible-playbook -i hosts.yml -vvv deploy_v2.yml
+```
+
+#### Tester
+
+Stack vagrant: Allez dans le navigateur puis entrer l'ip du client suivi du port 80: http://ip_client:80
 
 #####  Push du code sur github
 ```bash
