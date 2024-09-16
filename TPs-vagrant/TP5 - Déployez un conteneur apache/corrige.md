@@ -20,7 +20,12 @@
 
 ### Commandes ad-hoc
 
-####  Installer docker sur la machine client
+####  Installer docker sur la machine client via le playbook install_docker.yml
+
+#### Pour le faire on va installé les rôles suivant sur le controleur ansible
+
+#### Taper ces commande sur le controleur ansible
+
 ```bash
 ansible-galaxy install geerlingguy.pip
 ansible-galaxy install geerlingguy.docker
@@ -37,7 +42,7 @@ ansible-galaxy install geerlingguy.docker
 
 ```bash
 cat install_docker.yml
-      - hosts: all
+- hosts: all
   become: yes
   vars:
     pip_install_packages:
@@ -50,15 +55,10 @@ cat install_docker.yml
 
 ```
 
-#### Lancer le déploiement: 
+#### Lancer le playbook pour installer docker: 
 ```bash
 ansible-playbook -i hosts.ini install_docker.yml
 ```
-#### Test
-```bash
- ansible-playbook -i hosts.ini nginx.yml
-```
-
 
 ### Installation de ansible-lint
 ```bash
