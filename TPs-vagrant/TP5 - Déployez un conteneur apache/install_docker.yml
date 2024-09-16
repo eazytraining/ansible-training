@@ -1,0 +1,10 @@
+- hosts: all
+  become: yes
+  vars:
+    pip_install_packages:
+      - name: docker
+    docker_users:
+      - vagrant
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
