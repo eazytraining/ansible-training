@@ -74,5 +74,5 @@ ansible-playbook deploy-app.yml
 #### Tester
 
 Aller sur le navigateur taper: 
-pour client1: http://ip_client1:80
-pour client2: http://ip_client2:80
+pour prod donc client1: http://ip_client1:80
+pour staging donc client2: http://ip_client2:80 pour ce cas faudra modifier dans le playbook deploy-app.yml cd dernier hosts: staging
