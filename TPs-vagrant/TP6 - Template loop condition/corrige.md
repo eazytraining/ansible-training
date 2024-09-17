@@ -20,11 +20,11 @@
 
 ### Stack vagrant
 
-Bien se rassurer que le user et le password dans TP5 - Déployez un conteneur apache/webapp/group_vars/prod.yml soit vagrant
+Bien se rassurer que le user et le password dans webapp/group_vars/prod.yml soit vagrant
 
 ```bash
 
-cat P5 - Déployez un conteneur apache/webapp/group_vars/prod.yml
+cat webapp/group_vars/prod.yml
 ---
 ansible_user: vagrant
 ansible_password: vagrant

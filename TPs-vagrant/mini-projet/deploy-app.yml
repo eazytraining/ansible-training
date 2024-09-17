@@ -2,4 +2,6 @@
 - hosts: prod
   become: true
   roles:
-    - { role: basic-apache-container }
+    - geerlingguy.pip
+    - geerlingguy.docker
+    - role: basic-apache-container
