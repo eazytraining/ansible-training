@@ -27,3 +27,8 @@ Pour déployer le serveur Apache conteneurisé, exécutez le playbook apache.yml
 ansible-playbook deploy-app.yml
 ```
 #### Tester: ouvrir le port 80 au niveau de OPEN PORT de l'environnement eazylab
+
+#### Tester
+
+Ouvrir le port 80 au niveau de OPEN PORT de l'environnement eazylab depuis le client1 pour prod
+Ouvrir le port 80 au niveau de OPEN PORT de l'environnement eazylab depuis le client2 pour staging pour ce cas faudra modifier dans le playbook deploy-app.yml cd dernier hosts: staging
