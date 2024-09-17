@@ -71,3 +71,8 @@ Pour déployer le serveur Apache conteneurisé, exécutez le playbook apache.yml
 ```bash
 ansible-playbook deploy-app.yml
 ```
+#### Tester
+
+Aller sur le navigateur taper: 
+pour client1: http://ip_client1:80
+pour client2: http://ip_client2:80
