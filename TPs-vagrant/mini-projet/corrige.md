@@ -19,10 +19,37 @@
 ```
 ### Mini-projet Ansible
 
+##### Methode 1
+
+#### Déploiement
+
+Se rassurer de remplacer IP_Client par l'ip du client ansible dans le fichier host_vars/client1.yml et host_vars/client2.yml
+
+Pour déployer le serveur Apache conteneurisé, exécutez le playbook apache.yml à l'aide de la commande suivante:
+
+```bash
+ansible-playbook deploy-app.yml
+```
+
+##### Methode 2
+
 #### Installation du rôle
 
-Avant de déployer le playbook, il est nécessaire de télécharger et d'installer le rôle ansible-role-containerized-apache depuis Galaxy.
-Vous pouvez le faire avec la commande ansible-galaxy comme suit :
+Vous pouvez découplez votre rôle au cycle de vie du playbook à cet effet creez un repos git où vous mettrez uniquement le contenu du dossier rôle.
+
+Avant de déployer le playbook, il est nécessaire de télécharger et d'installer le rôle dont le nom est basic-apache-container depuis votre role sur github.
+
+on aura donc dans requirements.yml:
+
+```bash
+cat roles/requirements.yml
+---
+# Install a role for apache
+- name: basic-apache-container 
+  src: "https://repos_name"
+```
+
+Vous pouvez le faire avec la commande ansible-galaxy comme suit pour installer votre rôle :
 
 ```bash
 ansible-galaxy install -r roles/requirements.yml
@@ -32,5 +59,5 @@ ansible-galaxy install -r roles/requirements.yml
 Pour déployer le serveur Apache conteneurisé, exécutez le playbook apache.yml à l'aide de la commande suivante :
 
 ```bash
-ansible-playbook playbooks/apache.yml
+ansible-playbook deploy-app.yml
 ```
