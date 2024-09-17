@@ -4,7 +4,7 @@
   include_tasks: setup-centos.yml
 #- include_tasks: "setup-centos.yml"
 
-- include_tasks: "install-docker.yml"
+#- include_tasks: "install-docker.yml"
 
 - name: Copy website file template
   template:
