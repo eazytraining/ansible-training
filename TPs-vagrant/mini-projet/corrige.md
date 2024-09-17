@@ -23,11 +23,19 @@
 
 #### Déploiement
 
+#### Install necessary roles
+
+```bash
+ansible-galaxy install geerlingguy.pip
+ansible-galaxy install geerlingguy.docker
+```
+
 Se rassurer de remplacer IP_Client par l'ip du client ansible dans le fichier host_vars/client1.yml et host_vars/client2.yml
 
 Pour déployer le serveur Apache conteneurisé, exécutez le playbook apache.yml à l'aide de la commande suivante:
 
 ```bash
+
 ansible-playbook deploy-app.yml
 ```
 
@@ -47,6 +55,8 @@ cat roles/requirements.yml
 # Install a role for apache
 - name: basic-apache-container 
   src: "https://repos_name"
+- geerlingguy.pip
+- geerlingguy.docker
 ```
 
 Vous pouvez le faire avec la commande ansible-galaxy comme suit pour installer votre rôle :
