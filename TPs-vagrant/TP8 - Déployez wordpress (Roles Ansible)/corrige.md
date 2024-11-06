@@ -27,15 +27,6 @@ ansible-galaxy install -r roles/requirements.yml
 
 ### Se rassurer de remplecer IP_client par l'ip du client ansible dans le fichier hosts.yml
 
-### Installer docker compose chez le client avec les commandes:
-
-```bash
-
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-
-```
-
 ### NB: Se rassurer qu'aucun conteneur ne tourne chez le client ansible sur le port 80
 
 ### Contenu du fichier TP8 - Déployez wordpress (Roles Ansible)/webapp/group_vars/prod.yml:
