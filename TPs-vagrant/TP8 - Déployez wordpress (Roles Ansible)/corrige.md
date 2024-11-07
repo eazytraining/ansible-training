@@ -59,7 +59,7 @@ ansible_password: "{{ vault_ansible_password }}"
         curl -fsSL https://get.docker.com -o get-docker.sh
         sh get-docker.sh
       args:
-        creates: /usr/bin/docker  # Assure que cette tâche ne se réexécute pas si Docker est déjà installé
+        creates: /usr/bin/docker
   
     - name: Assurez-vous que Docker est démarré et activé au démarrage
       ansible.builtin.service:
