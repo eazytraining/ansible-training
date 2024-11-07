@@ -40,8 +40,6 @@ ansible_password: "{{ vault_ansible_password }}"
 ### le contenu de wordpress.yml
 
 ```bash
-
----
 ---
 - hosts: prod
   become: true
@@ -82,7 +80,6 @@ ansible_password: "{{ vault_ansible_password }}"
         state: file
   roles:
     - { role: ansible-role-containerized-wordpress}
-
 ```
 
 ### Lancez votre playbook et verifier que tout se passe bien
