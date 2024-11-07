@@ -11,5 +11,16 @@
       user: 
         name:  www-data
         state: present
+    - name: Télécharger Docker Compose
+      ansible.builtin.get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Ajouter les permissions d'exécution à Docker Compose
+      ansible.builtin.file:
+        path: /usr/local/bin/docker-compose
+        mode: '0755'
+        state: file
   roles:
     - { role: ansible-role-containerized-wordpress}
