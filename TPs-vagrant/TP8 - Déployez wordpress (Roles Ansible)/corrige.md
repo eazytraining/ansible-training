@@ -42,11 +42,12 @@ ansible_password: "{{ vault_ansible_password }}"
 ```bash
 
 ---
+---
 - hosts: prod
   become: true
   vars:
     system_user: vagrant
-    compose_binary_dir: /usr/local/bin
+    compose_binary_dir: /bin
   vars_files:
     - files/secrets/credentials.vault
   pre_tasks:
@@ -54,6 +55,31 @@ ansible_password: "{{ vault_ansible_password }}"
       user: 
         name:  www-data
         state: present
+
+    - name: Installer Docker via le script officiel
+      ansible.builtin.shell: |
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sh get-docker.sh
+      args:
+        creates: /usr/bin/docker  # Assure que cette tâche ne se réexécute pas si Docker est déjà installé
+  
+    - name: Assurez-vous que Docker est démarré et activé au démarrage
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Télécharger Docker Compose
+      ansible.builtin.get_url:
+        url: "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+        dest: /usr/local/bin/docker-compose
+        mode: '0755'
+
+    - name: Ajouter les permissions d'exécution à Docker Compose
+      ansible.builtin.file:
+        path: /usr/local/bin/docker-compose
+        mode: '0755'
+        state: file
   roles:
     - { role: ansible-role-containerized-wordpress}
 
