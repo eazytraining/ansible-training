@@ -3,7 +3,7 @@
   hosts: prod
   become: true
   vars:
-    ansible_python_interpreter: /usr/bin/python3.6
+    ansible_python_interpreter: /usr/bin/python3
   pre_tasks:
     - name: Install EPEL repo (for CentOS)
       package:
