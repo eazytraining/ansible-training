@@ -1,0 +1,25 @@
+---
+- name: "Apache installation using Docker on Ubuntu"
+  hosts: prod
+  become: true
+  vars:
+    ansible_sudo_pass: vagrant
+    ansible_python_interpreter: /usr/bin/python3
+
+  pre_tasks:
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install Docker SDK for Python (docker module)
+      pip:
+        name: docker
+        executable: pip3
+
+  tasks:
+    - name: Run Apache container using Docker
+      community.docker.docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"

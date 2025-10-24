@@ -1,0 +1,44 @@
+---
+- name: "Apache installation using Docker on Ubuntu"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+  pre_tasks:
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - wget
+        - python3
+        - python3-pip
+
+    - name: Install Docker SDK for Python
+      pip:
+        name: docker
+        executable: pip3
+
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/vagrant/index.html
+        owner: vagrant
+        group: vagrant
+        mode: '0644'
+
+    - name: Create Apache container
+      community.docker.docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes:
+          - /home/vagrant/index.html:/usr/local/apache2/htdocs/index.html

@@ -1,12 +1,12 @@
 ---
-- name: "Apache installation using Docker on CentOS 7"
+- name: "Apache installation using Docker"
   hosts: prod
   become: true
   vars:
     ansible_sudo_pass: vagrant
-    ansible_python_interpreter: /usr/bin/python3.6
+    ansible_python_interpreter: /usr/bin/python3
   pre_tasks:
-    - name: Install EPEL repo (for CentOS)
+    - name: Install EPEL repo
       package:
         name: epel-release
         state: present

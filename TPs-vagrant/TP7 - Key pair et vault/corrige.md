@@ -1,23 +1,3 @@
-#### Versions sur eazytraining/ansible
-```bash
-      OS: Centos7
-      ansible [core 2.11.12]
-      config file = None
-      configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-      ansible python module location = /usr/local/lib/python3.6/site-packages/ansible
-      ansible collection location = /home/vagrant/.ansible/collections:/usr/share/ansible/collections
-      executable location = /usr/local/bin/ansible
-      python version = 3.6.8 (default, Nov 14 2023, 16:29:52) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)]
-      jinja version = 3.0.3
-      libyaml = True
-```
-  
-#### Versions sur eazytraining/client
-```bash
-    OS: Centos7
-    Python 3.6.8
-```    
-
 ### Créez un cluster (1 ansible et 1 client) et récupérez votre code du TP-6 depuis votre github
 
 ########################### VAULT ###########################
@@ -54,14 +34,70 @@ ansible_password: "{{ vault_ansible_password }}"
 
 ```
 
-### Vous allez modifiez le playbook deploy.yml afin de lui demander de charger le fichier vaulté en tant que vars_files, rajouter ce qui suit:
+### Vous allez modifiez le playbook deploy_ubuntu.yml afin de lui demander de charger le fichier vaulté en tant que vars_files, rajouter ce qui suit:
+```bash
+---
+- name: "Apache installation using Docker on Ubuntu"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  vars_files:
+    - files/secrets/credentials.vault
+
+  pre_tasks:
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - wget
+        - python3
+        - python3-pip
+
+    - name: Install Docker SDK for Python
+      pip:
+        name: docker
+        executable: pip3
+
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/vagrant/index.html
+        owner: vagrant
+        group: vagrant
+        mode: '0644'
+
+    - name: Create Apache container
+      community.docker.docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes: 
+          - /home/vagrant/index.html:/usr/local/apache2/htdocs/index.html
+```
+
+### Lancez votre playbook en rajoutant le paramètre qui vous permettra de fournir la clé vault
+```bash
+ansible-playbook -i hosts.yml --ask-vault-pass deploy_ubuntu.yml
+```
+
+
+### Vous allez modifiez le playbook deploy_centos.yml afin de lui demander de charger le fichier vaulté en tant que vars_files, rajouter ce qui suit:
 ```bash
 ---
 - name: "Apache installation using Docker on CentOS 7"
   hosts: prod
   become: true
   vars:
-    ansible_python_interpreter: /usr/bin/python3.6
+    ansible_python_interpreter: /usr/bin/python3
   vars_files:
       - files/secrets/credentials.vault
   pre_tasks:
@@ -102,7 +138,7 @@ ansible_password: "{{ vault_ansible_password }}"
 
 ### Lancez votre playbook en rajoutant le paramètre qui vous permettra de fournir la clé vault
 ```bash
-ansible-playbook -i hosts.yml --ask-vault-pass deploy.yml
+ansible-playbook -i hosts.yml --ask-vault-pass deploy_centos.yml
 ```
 
 ########################### KEYPAIR ###########################
@@ -138,7 +174,64 @@ vars:
 ```
 ### Se rassurer de remplacer IP_client dans hosts.yml par l'ip du client ansible
 
-### contenu du fichier deploy.yml
+### contenu du fichier deploy_ubuntu.yml
+
+```bash
+
+---
+- name: "Apache installation using Docker on Ubuntu"
+  hosts: prod
+  become: true
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  vars_files:
+    - files/secrets/credentials.vault
+
+  pre_tasks:
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - git
+        - wget
+        - python3
+        - python3-pip
+
+    - name: Install Docker SDK for Python
+      pip:
+        name: docker
+        executable: pip3
+
+  tasks:
+    - name: Copy website file template
+      template:
+        src: index.html.j2
+        dest: /home/vagrant/index.html
+        owner: vagrant
+        group: vagrant
+        mode: '0644'
+
+    - name: Create Apache container
+      community.docker.docker_container:
+        name: webapp
+        image: httpd
+        ports:
+          - "80:80"
+        volumes: 
+          - /home/vagrant/index.html:/usr/local/apache2/htdocs/index.html
+```
+
+### Lancez à nouveau votre playbook et verifier que tout se passe bien
+```bash
+ansible-playbook -i hosts.yml deploy_ubuntu.yml
+```
+
+### contenu du fichier deploy_centos.yml
 
 ```bash
 
@@ -147,7 +240,7 @@ vars:
   hosts: prod
   become: true
   vars:
-    ansible_python_interpreter: /usr/bin/python3.6
+    ansible_python_interpreter: /usr/bin/python3
   pre_tasks:
     - name: Install EPEL repo
       package: name={{ item }} state=present
@@ -187,5 +280,5 @@ vars:
 
 ### Lancez à nouveau votre playbook et verifier que tout se passe bien
 ```bash
-ansible-playbook -i hosts.yml deploy.yml
+ansible-playbook -i hosts.yml deploy_centos.yml
 ```
